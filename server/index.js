@@ -40,7 +40,7 @@ mongoose.connect(process.env.MONGO_URL).catch((err) => {
   process.exit(1);
 });
 
-app.post("/api/auth/sendOTP", (req, res) => {
+app.post("/auth/sendOTP", (req, res) => {
   if (!req.body || !req.body.phone) {
     res.status(400).send({ message: "Invalid parameters provided" });
     return;
@@ -87,7 +87,7 @@ const authenticateUser = async (req, res, next) => {
   });
 };
 
-app.post("/api/auth/refresh", (req, res) => {
+app.post("/auth/refresh", (req, res) => {
   const refreshToken = req.cookies.refreshToken;
   if (!refreshToken) {
     res.status(403).send({ message: "Refresh Token not Found" });
@@ -121,7 +121,7 @@ app.post("/api/auth/refresh", (req, res) => {
   });
 });
 
-app.post("/api/auth/verifyOTP", async (req, res) => {
+app.post("/auth/verifyOTP", async (req, res) => {
   const phone = req.body.phone;
   const hash = req.body.hash;
   const otp = req.body.otp;
@@ -172,7 +172,7 @@ app.post("/api/auth/verifyOTP", async (req, res) => {
     .send({ message: "Logged in successfully" });
 });
 
-app.post("/api/auth/logout", (req, res) => {
+app.post("/auth/logout", (req, res) => {
   res
     .clearCookie("refreshToken")
     .clearCookie("accessToken")
@@ -190,7 +190,7 @@ app.get("/api/auth/user", authenticateUser, async (req, res) => {
   return res.status(200).send(user);
 });
 
-app.post("/api/new", authenticateUser, async (req, res) => {
+app.post("/new", authenticateUser, async (req, res) => {
   if (!req.body.header || !req.body.content) {
     return res.send(400).send({ message: "Invalid Parameters" });
   }
@@ -200,4 +200,5 @@ app.post("/api/new", authenticateUser, async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
-});,
+});
+
