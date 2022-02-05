@@ -107,7 +107,7 @@ export default function Home() {
   return (
     <main className={'min-h-screen bg-slate-900 w-full'}>
       <Head>
-        <title>Electron&abpos;s Log</title>
+        <title>Electron's Log</title>
       </Head>
       <Intro to={'notice'} />
       <Notice to={'prologue'} />
