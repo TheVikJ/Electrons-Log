@@ -8,6 +8,7 @@ import Puzzle from '../components/system/puzzle'
 import TerminalTyper from '../components/typography/terminalTyper'
 import Typist from 'react-typist'
 import LogEntry from '../components/system/logEntry'
+import Head from 'next/head'
 
 const GenerateLines = ({ lines, file, onTypingDone }) => {
   return (
@@ -105,6 +106,9 @@ export default function Home() {
 
   return (
     <main className={'min-h-screen bg-slate-900 w-full'}>
+      <Head>
+        <title>Electron&abpos;s Log</title>
+      </Head>
       <Intro to={'notice'} />
       <Notice to={'prologue'} />
       <Prologue to={'start'} />
