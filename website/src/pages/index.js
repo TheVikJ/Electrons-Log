@@ -107,6 +107,7 @@ export default function Home() {
   return (
     <main className={'min-h-screen bg-slate-900 w-full'}>
       <Head>
+        {/* eslint-disable-next-line react/no-unescaped-entities */}
         <title>Electron's Log</title>
       </Head>
       <Intro to={'notice'} />

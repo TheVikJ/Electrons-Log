@@ -73,7 +73,7 @@ const puzzleData = [
       'Message 06: [Post-Death Procedure Activated]',
       'Code-Name: "Overlay"',
       '⚡',
-      "This one's a bit different, but you'll learn some important skills. Most importantly never take anything at face data",
+      "This one's a bit different, but you'll learn some important skills. Most importantly never take anything at face value",
       '⚡',
       '[Message End]',
     ],
