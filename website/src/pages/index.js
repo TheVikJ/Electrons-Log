@@ -105,8 +105,8 @@ export default function Home() {
 
   return (
     <main className={'min-h-screen bg-slate-900 w-full'}>
-      <Intro to={'prologue'} />
-      {/*<Notice to={'prologue'} />*/}
+      <Intro to={'notice'} />
+      <Notice to={'prologue'} />
       <Prologue to={'start'} />
       <LazyLoad>{renderEntries}</LazyLoad>
       <br id={'start'} />
