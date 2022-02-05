@@ -8,6 +8,10 @@ body {
     height: -webkit-fill-available;
 }
 
+.lazyload-wrapper {
+    @apply flex flex-col w-full items-center min-h-screen;
+}
+
 html {
     @apply scroll-smooth;
 }

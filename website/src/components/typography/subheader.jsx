@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react'
 
 function Subheader({ children, className }) {
   return (
     <h2
-      className={`font-medium text-xl md:text-2xl text-slate-900 text-center pt-14 ${className}`}
+      className={`font-medium text-xl md:text-2xl text-slate-100 text-center pt-14 ${className}`}
     >
-      <span className={"py-2 px-3 rounded-lg bg-slate-100"}>{children}</span>
+      {children}
     </h2>
-  );
+  )
 }
 
-export default Subheader;
+export default Subheader
