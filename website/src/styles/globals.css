@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+    @apply p-0 m-0;
+    height: -webkit-fill-available;
+}
+
+html {
+    @apply scroll-smooth;
+}
+
+::-webkit-scrollbar {
+    @apply w-1.5;
+}
+
+::-webkit-scrollbar-track {
+    @apply bg-slate-700;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply bg-slate-200 rounded-xl duration-75;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-400;
+}
