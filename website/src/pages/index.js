@@ -150,7 +150,7 @@ export default function Home() {
                   <Link href={'https://github.com/PreciousWarrior/'} />)
                 </li>
                 <li>
-                  Blahaj Gan (
+                  Blahaj Gang (
                   <Link href={'http://blahaj.lol/discord/'} />)
                 </li>
               </ul>
