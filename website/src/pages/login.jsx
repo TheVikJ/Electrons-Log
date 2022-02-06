@@ -16,8 +16,6 @@ const LoginPrompt = ({ onLogin, message, loading }) => {
   const [phoneNumber, setPhoneNumber] = useState('')
   const [formValid, setFormValid] = useState(true)
 
-  console.log(message.response)
-
   useEffect(() => {
     const timeout = setTimeout(() => {}, 200)
     setFormValid(/^\+[1-9]\d{5,14}$/.test(phoneNumber))
