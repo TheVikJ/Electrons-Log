@@ -2,13 +2,14 @@ import Intro from '../components/intro'
 import Notice from '../components/notice'
 import Prologue from '../components/prologue'
 import LazyLoad from 'react-lazyload'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import puzzleData, { types as puzzleTypes } from '../data/puzzleData'
 import Puzzle from '../components/system/puzzle'
 import TerminalTyper from '../components/typography/terminalTyper'
 import Typist from 'react-typist'
 import LogEntry from '../components/system/logEntry'
 import Head from 'next/head'
+import Credits from '../components/credits'
 
 const GenerateLines = ({ lines, file, onTypingDone }) => {
   return (
@@ -43,20 +44,18 @@ const GenerateLines = ({ lines, file, onTypingDone }) => {
   )
 }
 
-const Link = ({ href }) => {
-  return (
-    <a href={href} rel={'noreferrer'} target={'_blank'}>
-      {href}
-    </a>
-  )
-}
-
 export default function Home() {
   const [completedStatus, setCompletedStatus] = useState(
     puzzleData.map((_, index) => index === 0)
   )
 
   const [gameCompleted, setGameCompleted] = useState(false)
+  const scrollRef = useRef(null)
+
+  useEffect(() => {
+    console.log(scrollRef.current)
+    scrollRef.current?.scrollIntoView(false)
+  }, [completedStatus, gameCompleted])
 
   const renderEntries = puzzleData
     .filter((x, index) => completedStatus[index])
@@ -114,49 +113,9 @@ export default function Home() {
       <Notice to={'prologue'} />
       <Prologue to={'start'} />
       <LazyLoad>{renderEntries}</LazyLoad>
-      <br id={'start'} />
-      {gameCompleted && (
-        <LogEntry
-          header={'Congratulations!'}
-          message={
-            <TerminalTyper>
-              <p>Congratulations on completing the ARG!</p>
-              <Typist.Delay ms={500} />
-              <p>
-                This would not have been possible without the awesome people
-                below!
-              </p>
-              <Typist.Delay ms={500} />
-              <p>
-                Made by Vikramaditya Jaisingh//ElectronDeLaScoop (
-                <Link href={'https://github.com/TheVikJ'} />)
-              </p>
-              <Typist.Delay ms={500} />
-              <p>Special Thanks:</p>
-              <ul>
-                <li>
-                  Dhruman Gupta (
-                  <Link href={'https://github.com/DhrumanGupta/'} />)
-                </li>
-                <li>
-                  Adam Drummond (<Link href={'http://adamd.fyi/'} />)
-                </li>
-                <li>
-                  Aashi Shah (<Link href={'https://aashishah.tech/'} />)
-                </li>
-                <li>nfreak141</li>
-                <li>
-                  Kshitij Bhatia (
-                  <Link href={'https://github.com/PreciousWarrior/'} />)
-                </li>
-                <li>
-                  Blahaj Gang (
-                  <Link href={'http://blahaj.lol/discord/'} />)
-                </li>
-              </ul>
-            </TerminalTyper>
-          }
-        />
+      {gameCompleted && <Credits />}
+      {!gameCompleted && (
+        <div className={'h-[70vh] w-full'} id={'start'} ref={scrollRef} />
       )}
     </main>
   )
