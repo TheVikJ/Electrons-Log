@@ -32,7 +32,7 @@ app.use(
     origin:
       prodEnv === "development"
         ? "http://localhost:3000"
-        : "https://backend.log-of-emin.us",
+        : "https://log-of-emin.us",
     credentials: true,
   })
 );
