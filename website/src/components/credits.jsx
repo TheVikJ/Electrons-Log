@@ -11,7 +11,7 @@ const Link = ({ href }) => {
   )
 }
 
-function Credits(props) {
+function Credits() {
   return (
     <LogEntry
       header={'Congratulations!'}

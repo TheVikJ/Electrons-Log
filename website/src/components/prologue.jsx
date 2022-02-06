@@ -4,7 +4,7 @@ import Section from './section'
 import Content from './typography/content'
 import { IoIosArrowDown } from 'react-icons/io'
 
-function Prologue({ to }) {
+function Prologue({ to, pos }) {
   return (
     <Section id={'prologue'}>
       <Subheader className={'mb-auto'}>Prologue</Subheader>
@@ -32,7 +32,9 @@ function Prologue({ to }) {
       </span>
 
       <span
-        className={'absolute flex flex-col w-full items-center -bottom-[200vh]'}
+        className={`absolute flex flex-col w-full items-center -bottom-[${
+          pos * 100
+        }vh]`}
       >
         <a
           href={`#${to}`}

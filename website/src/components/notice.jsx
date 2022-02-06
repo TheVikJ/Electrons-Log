@@ -1,8 +1,10 @@
+import Link from '../components/utils/link'
 import React from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 import Subheader from './typography/subheader'
 import Content from './typography/content'
 import Section from './section'
+import { SecondaryButton as Button } from './UI/button'
 
 function Notice({ to }) {
   return (
@@ -15,7 +17,9 @@ function Notice({ to }) {
           <br />
           You can login use Twilio to save your progress
         </Content>
-        <button>Login</button>
+        <Link href={'/login'}>
+          <Button className={'mx-auto'}>Login</Button>
+        </Link>
       </span>
 
       <span

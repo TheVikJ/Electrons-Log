@@ -6,9 +6,8 @@ const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const User = require("./models/user.model");
-const Article = require("./models/article.model");
 
-const PORT = 5000;
+const PORT = 1337;
 
 const accountSid = process.env.ACCOUNT_SID;
 const authToken = process.env.AUTH_TOKEN;
@@ -30,7 +29,10 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: prodEnv === "development" ? "http://localhost:5000" : "https://backend.playwrightpaladin.co",
+    origin:
+      prodEnv === "development"
+        ? "http://localhost:3000"
+        : "https://backend.log-of-emin.us",
     credentials: true,
   })
 );
@@ -40,7 +42,7 @@ mongoose.connect(process.env.MONGO_URL).catch((err) => {
   process.exit(1);
 });
 
-app.post("/auth/sendOTP", (req, res) => {
+app.post("/auth/sendOTP", async (req, res) => {
   if (!req.body || !req.body.phone) {
     res.status(400).send({ message: "Invalid parameters provided" });
     return;
@@ -54,13 +56,17 @@ app.post("/auth/sendOTP", (req, res) => {
   const hash = crypto.createHmac("sha256", smsKey).update(data).digest("hex");
   const fullHash = `${hash}.${expires}`;
 
-  client.messages
-    .create({
+  try {
+    await client.messages.create({
       body: `Your One Time Password (OTP) for Electron's Log is ${otp}`,
       from: phoneNumber,
       to: phone,
-    })
-    .catch(console.error);
+    });
+  } catch {
+    return res.status(500).send({
+      message: "Not sent due to twilio test account limitations!",
+    });
+  }
 
   res.status(200).send({ phone, hash: fullHash });
 });
@@ -145,7 +151,7 @@ app.post("/auth/verifyOTP", async (req, res) => {
   const accessToken = jwt.sign({ data: phone }, jwtAuthToken, {
     expiresIn: "1d",
   });
-  const refreshToken = jwt.sign({ data: phone }, jwtRefreshToken {
+  const refreshToken = jwt.sign({ data: phone }, jwtRefreshToken, {
     expiresIn: "1y",
   });
   refreshTokens.push(refreshToken);
@@ -153,7 +159,7 @@ app.post("/auth/verifyOTP", async (req, res) => {
   try {
     const user = User.findOne({ phone });
     if (!user) {
-      await User.create({ phone, posts: [] });
+      await User.create({ phone });
     }
   } catch {}
 
@@ -179,26 +185,28 @@ app.post("/auth/logout", (req, res) => {
     .send({ message: "User Logged Out" });
 });
 
-app.get("/api/auth/user", authenticateUser, async (req, res) => {
+app.get("/auth/user", authenticateUser, async (req, res) => {
   const phone = req.phone;
-  let user = User.findOne({ phone }).populate("posts").exec();
-  console.log(user);
+  let user = User.findOne({ phone });
   if (!user) {
-    user = await User.create({ phone, posts: [] });
+    user = await User.create({ phone });
   }
 
-  return res.status(200).send(user);
+  return res.status(200).send({
+    user: user.phone,
+  });
 });
+
+// app.get("/auth/user", async (req, res) => {
+//   return res.status(200).send({ data: "" });
+// });
 
 app.post("/new", authenticateUser, async (req, res) => {
   if (!req.body.header || !req.body.content) {
     return res.send(400).send({ message: "Invalid Parameters" });
   }
-
-  const phone = req.phone;
 });
 
 app.listen(PORT, () => {
   console.log(`server started on port ${PORT}`);
 });
-
