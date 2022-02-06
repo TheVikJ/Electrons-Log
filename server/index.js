@@ -197,10 +197,6 @@ app.get("/auth/user", authenticateUser, async (req, res) => {
   });
 });
 
-// app.get("/auth/user", async (req, res) => {
-//   return res.status(200).send({ data: "" });
-// });
-
 app.post("/new", authenticateUser, async (req, res) => {
   if (!req.body.header || !req.body.content) {
     return res.send(400).send({ message: "Invalid Parameters" });
