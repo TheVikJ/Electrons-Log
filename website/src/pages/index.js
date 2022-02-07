@@ -1,5 +1,4 @@
 import Intro from '../components/intro'
-import Notice from '../components/notice'
 import Prologue from '../components/prologue'
 import LazyLoad from 'react-lazyload'
 import { useEffect, useRef, useState } from 'react'
@@ -10,10 +9,7 @@ import Typist from 'react-typist'
 import LogEntry from '../components/system/logEntry'
 import Head from 'next/head'
 import Credits from '../components/credits'
-import useUser from '../hooks/useUser'
 import Loading from '../components/UI/Loading'
-import { SecondaryButton as Button } from '../components/UI/button'
-import { logout } from '../utils/userApi'
 
 const GenerateLines = ({ lines, file, onTypingDone }) => {
   return (
@@ -59,12 +55,6 @@ export default function Home() {
   useEffect(() => {
     scrollRef.current?.scrollIntoView(false)
   }, [completedStatus, gameCompleted])
-
-  const { loading, loggedIn, mutate } = useUser()
-
-  if (loading) {
-    return <Loading />
-  }
 
   const renderEntries = puzzleData
     .filter((x, index) => completedStatus[index])
@@ -118,25 +108,12 @@ export default function Home() {
         {/* eslint-disable-next-line react/no-unescaped-entities */}
         <title>Electron's Log</title>
       </Head>
-      <Intro to={loggedIn ? 'prologue' : 'notice'} />
-      {!loggedIn && <Notice to={'prologue'} />}
-      <Prologue to={'start'} pos={loggedIn ? 1 : 2} />
+      <Intro to={'prologue'} />
+      <Prologue to={'start'} pos={1} />
       <LazyLoad>{renderEntries}</LazyLoad>
       {gameCompleted && <Credits />}
       {!gameCompleted && (
         <div className={'h-[70vh] w-full'} id={'start'} ref={scrollRef} />
-      )}
-
-      {loggedIn && (
-        <Button
-          className={'fixed top-0 right-0 mr-5 mt-5'}
-          onClick={async () => {
-            await logout()
-            mutate()
-          }}
-        >
-          Logout
-        </Button>
       )}
     </main>
   )

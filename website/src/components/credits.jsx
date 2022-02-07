@@ -31,22 +31,22 @@ function Credits() {
           <p>Special Thanks:</p>
           <ul>
             <li>
-              Dhruman Gupta (
+              - Dhruman Gupta (
               <Link href={'https://github.com/DhrumanGupta/'} />)
             </li>
             <li>
-              Adam Drummond (<Link href={'http://adamd.fyi/'} />)
+              - Adam Drummond (<Link href={'http://adamd.fyi/'} />)
             </li>
             <li>
-              Aashi Shah (<Link href={'https://aashishah.tech/'} />)
+              - Aashi Shah (<Link href={'https://aashishah.tech/'} />)
             </li>
-            <li>nfreak141</li>
+            <li>- nfreak141</li>
             <li>
-              Kshitij Bhatia (
+              - Kshitij Bhatia (
               <Link href={'https://github.com/PreciousWarrior/'} />)
             </li>
             <li>
-              Blahaj Gang (
+              - Blahaj Gang (
               <Link href={'http://blahaj.lol/discord/'} />)
             </li>
           </ul>
