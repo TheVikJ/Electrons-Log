@@ -115,6 +115,8 @@ export default function Home() {
       </Head>
       <Intro to={'prologue'} />
       <Prologue to={'start'} pos={1} />
+      <br/>
+      <br/>
       <LazyLoad>{renderEntries}</LazyLoad>
       {gameCompleted && <Credits />}
       {!gameCompleted && (
