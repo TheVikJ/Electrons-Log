@@ -51,8 +51,13 @@ export default function Home() {
 
   const [gameCompleted, setGameCompleted] = useState(false)
   const scrollRef = useRef(null)
+  const didMountRef = useRef(false);
 
   useEffect(() => {
+    if (!didMountRef.current) {
+      didMountRef.current = true;
+      return;
+    }
     scrollRef.current?.scrollIntoView(false)
   }, [completedStatus, gameCompleted])
 
